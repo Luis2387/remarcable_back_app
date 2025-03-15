@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--lhsr(ri38i)bs2uyoc+9e(!b_wzg%guazk_d3ps+nwcrcfku*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["remarcable-back-app.onrender.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
