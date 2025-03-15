@@ -7,6 +7,8 @@ django.setup()
 
 User = get_user_model()
 
+# Create a superuser admin since render doesn't allow to access to shell console on the free version
+
 SUPERUSER_USERNAME = os.getenv("DJANGO_SUPERUSER_USERNAME", "admin")
 SUPERUSER_EMAIL = os.getenv("DJANGO_SUPERUSER_EMAIL", "admin@example.com")
 SUPERUSER_PASSWORD = os.getenv("DJANGO_SUPERUSER_PASSWORD", "admin123")

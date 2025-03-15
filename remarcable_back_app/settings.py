@@ -22,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--lhsr(ri38i)bs2uyoc+9e(!b_wzg%guazk_d3ps+nwcrcfku*'
+
+# SECRET_KEY value is handled in Render
+SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -80,6 +82,10 @@ WSGI_APPLICATION = 'remarcable_back_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# To deploy our project in Render, we need to use a POstgres DB. I will use dj_database_url
+# because it will handle everything. os.getenv("DATABASE_URL") will take the database 
+# url that is already created in render
+
 if os.getenv("DATABASE_URL"):
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
@@ -132,6 +138,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# This is to allow local and production connection to react
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

@@ -2,11 +2,16 @@ import os
 import django
 import random
 
+# Since this is being triggered on deployment, this is necesary for django to know which
+# Settings needs to be used
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'remarcable_back_app.settings')
 django.setup()
 
 from products.models import Category, Tag, Product
 
+
+# IA generated list of categories, tags and products
 
 CATEGORIES = ["Electronics", "Books", "Clothing", "Home Appliances", "Toys"]
 TAGS = ["New", "Sale", "Limited Edition", "Popular", "Featured", "Best Seller", "Eco-Friendly", "Discount", "Exclusive", "Handmade"]
@@ -33,11 +38,20 @@ PRODUCTS = [
     ("Portable Charger", 49.99),
 ]
 
+# Create or retreive if already exists a list of categories based on the list provided
+
 for cat in CATEGORIES:
     category, created = Category.objects.get_or_create(name=cat)
 
+# Create or retreive if already exists a list of tags based on the list provided
+
 for tag in TAGS:
     tag_obj, created = Tag.objects.get_or_create(name=tag)
+
+# Choose ramdonly a category for each product based on the newly created or retreived categories.
+# Once that's donde, it creates products based on the randomly choose category and the price and name
+# of the list. Finally, if the product is created, it assigns randomly tags between 0 and 3, using
+# the newly created or retreived tags.
 
 for name, price in PRODUCTS:
     category = random.choice(Category.objects.all())
